@@ -2,6 +2,7 @@ package com.team4.frontend.config;
 
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -12,6 +13,8 @@ import javax.net.ssl.SSLException;
 
 @Configuration
 public class WebClientConfig {
+    @Value("${backend.uri}")
+    private String backendUri;
 
     @Bean
     public WebClient webClient() {
@@ -28,7 +31,7 @@ public class WebClientConfig {
                 });
 
         return WebClient.builder()
-                .baseUrl("https://ec2-3-7-252-76.ap-south-1.compute.amazonaws.com/api")
+                .baseUrl(backendUri)
                 .clientConnector(new ReactorClientHttpConnector(httpClient))
                 .build();
     }
