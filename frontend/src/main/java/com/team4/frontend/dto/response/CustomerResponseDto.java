@@ -1,4 +1,15 @@
 package com.team4.frontend.dto.response;
 
-public class CustomerResponseDto {
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import java.io.Serializable;
+
+public record CustomerResponseDto(
+        Integer id,
+        @NotNull @Size(max = 255) String name,
+        @NotNull @Size(max = 255) String email,
+        @NotNull @Size(max = 15) String phone,
+        AddressResponseDto address
+) implements Serializable {
 }
